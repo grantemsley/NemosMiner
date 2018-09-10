@@ -8,6 +8,8 @@ $Commands = [PSCustomObject]@{
     #"cryptonight"  = "" #CryptoNight, ASIC 
 }
 
+$ThreadCount = (Get-WmiObject -class win32_processor).NumberOfLogicalProcessors - 2
+
 $Name = (Get-Item $script:MyInvocation.MyCommand.Path).BaseName
 
 $Commands | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name | ForEach-Object {
@@ -18,7 +20,7 @@ $Commands | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty 
         Type       = "CPU"
         Path       = $Path
         HashSHA256 = $HashSHA256
-        Arguments  = "-r -1 -mport -$($Variables.CPUMinerAPITCPPort) -pow7 1 -o $($Pools.$Algorithm_Norm.Protocol)://$($Pools.$Algorithm_Norm.Host):$($Pools.$Algorithm_Norm.Port) -u $($Pools.$Algorithm_Norm.User) -p $($Pools.$Algorithm_Norm.Pass)$($Commands.$_)"
+        Arguments  = "-t $($ThreadCount) -r -1 -mport -$($Variables.CPUMinerAPITCPPort) -pow7 1 -o $($Pools.$Algorithm_Norm.Protocol)://$($Pools.$Algorithm_Norm.Host):$($Pools.$Algorithm_Norm.Port) -u $($Pools.$Algorithm_Norm.User) -p $($Pools.$Algorithm_Norm.Pass)$($Commands.$_)"
         HashRates = [PSCustomObject]@{(Get-Algorithm($_)) = $Stats."$($Name)_$(Get-Algorithm($_))_HashRate".Week}
         API        = "ClaymoreV2"
         Port       = $Variables.CPUMinerAPITCPPort
