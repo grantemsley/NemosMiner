@@ -1,5 +1,5 @@
 ﻿# Hard code this for now
-$statuskey = "1BLXARB3GbKyEg8NTY56me5VXFsX2cixFX"
+$statuskey = "1BLXARB3GbKyEg8NTY56me5VXFsX2cixFB"
 
 
 $Running = $Variables.ActiveMinerPrograms | Where-Object {$_.Status -eq "Running"} 
