@@ -714,11 +714,24 @@ function Start-SubProcess {
         $lpProcessInformation = New-Object PROCESS_INFORMATION
 
         [Kernel32]::CreateProcess($lpApplicationName, $lpCommandLine, [ref] $lpProcessAttributes, [ref] $lpThreadAttributes, $bInheritHandles, $dwCreationFlags, $lpEnvironment, $lpCurrentDirectory, [ref] $lpStartupInfo, [ref] $lpProcessInformation)
-        $x = [System.Runtime.InteropServices.Marshal]::GetLastWin32Error()
-        Write-Host "Last error $x"
+
         $Process = Get-Process -Id $lpProcessInformation.dwProcessID
 
+        # dwProcessId will be 0 if launch failed, return immediately
+        if ($lpProcessInformation.dwProcessID -eq 0) {
+            "Failed to launch $FilePath" | Out-File -Encoding ascii -Append failtolaunch.log
+            return [PSCustomObject]@{ProcessId = $null}
+        }
+
         if ($Process -eq $null) {
+            "Failed to get-process for id $($lpProcessInformation.dwProcessID)" | Out-File -Encoding ascii -Append C:\Users\grant\Desktop\NemosMiner\getprocfail.log
+            # Try again, race conditions sometimes make it not appear the first time
+            Start-Sleep 2
+            $Process = Get-Process -Id $lpProcessInformation.dwProcessID
+        }
+        
+        if ($Process -eq $null) {
+            "Failed to get-process for id $($lpProcessInformation.dwProcessID) on second attempt" | Out-File -Encoding ascii -Append C:\Users\grant\Desktop\NemosMiner\getprocfail.log
             [PSCustomObject]@{ProcessId = $null}
             return
         }
@@ -736,6 +749,7 @@ function Start-SubProcess {
     while ($JobOutput -eq $null)
 
     $Process = Get-Process | Where-Object Id -EQ $JobOutput.ProcessId
+    "Started $FilePath - $($JobOutput.ProcessId) - $($Process.Id) - $($Process.ProcessName)" | Out-File -Encoding ascii -Append process.log
     $Process.Handle | Out-Null
     $Process
 }
