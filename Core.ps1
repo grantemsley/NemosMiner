@@ -1,8 +1,4 @@
 <#
-This file is part of NemosMiner
-Copyright (c) 2018 Nemo
-Copyright (c) 2018 MrPlus
-
 NemosMiner is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -20,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <#
 Product:        NemosMiner
 File:           Core.ps1
-version:        3.4
-version date:   9 September 2018
+version:        3.4.1
+version date:   14 September 2018
 #>
 
 Function InitApplication {
@@ -267,7 +263,7 @@ Function NPMCycle {
     $Variables.StatusText = "Loading miners.."
     $Variables | Add-Member -Force @{Miners = @()}
     $StartPort = 4068
-    $Variables.Miners = if (Test-Path "Miners") {@(Get-ChildItemContent "Miners"; if($Config.IncludeOptionalMiners -and (Test-Path "OptionalMiners")) {Get-ChildItemContent "OptionalMiners"}) | ForEach {$_.Content | Add-Member @{Name = $_.Name} -PassThru} | 
+    $Variables.Miners = if (Test-Path "Miners") {@(Get-ChildItemContent "Miners"; if ($Config.IncludeOptionalMiners -and (Test-Path "OptionalMiners")) {Get-ChildItemContent "OptionalMiners"}) | ForEach {$_.Content | Add-Member @{Name = $_.Name} -PassThru} | 
             Where {$Config.Type.Count -eq 0 -or (Compare $Config.Type $_.Type -IncludeEqual -ExcludeDifferent | Measure).Count -gt 0} | 
             Where {!$Config.Algorithm -or (Compare $Config.Algorithm $_.HashRates.PSObject.Properties.Name -IncludeEqual -ExcludeDifferent | Measure).Count -gt 0} | 
             Where {$Config.MinerName.Count -eq 0 -or (Compare $Config.MinerName $_.Name -IncludeEqual -ExcludeDifferent | Measure).Count -gt 0}

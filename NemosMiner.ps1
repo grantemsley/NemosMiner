@@ -1,7 +1,4 @@
 <#
-This file is part of NemosMiner
-Copyright (c) 2018 MrPlus
-
 NemosMiner is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -19,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <#
 Product:        NemosMiner
 File:           NemosMiner.ps1
-version:        3.4
-version date:   9 September 2018
+version:        3.4.1
+version date:   14 September 2018
 #>
 
 param(
@@ -29,7 +26,7 @@ param(
     [Parameter(Mandatory = $false)]
     [String]$UserName = "nemo", 
     [Parameter(Mandatory = $false)]
-    [String]$WorkerName = "ID=NemosMiner-v3.4", 
+    [String]$WorkerName = "ID=NemosMiner-v3.4.1", 
     [Parameter(Mandatory = $false)]
     [Int]$API_ID = 0, 
     [Parameter(Mandatory = $false)]
@@ -77,7 +74,7 @@ param(
     [Parameter(Mandatory = $false)]
     [Bool]$TrackEarnings = $True, # Display earnings information
     [Parameter(Mandatory = $false)]
-    [Bool]$Autoupdate = $False, # Autoupdate
+    [Bool]$Autoupdate = $true, # Autoupdate
     [Parameter(Mandatory = $false)]
     [String]$ConfigFile = ".\Config\config.json"
 )
@@ -87,9 +84,6 @@ param(
 . .\Core.ps1
 
 @"
-NemosMiner
-Copyright (c) 2018 MrPlus and Nemo
-
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions.
@@ -368,7 +362,7 @@ Function PrepareWriteConfig {
     $Config | Add-Member -Force @{$CheckedListBoxPools.Tag = $CheckedListBoxPools.CheckedItems}
     Write-Config -ConfigFile $ConfigFile -Config $Config
     $MainForm.Refresh
-    # [windows.forms.messagebox]::show("Please restart NPlusMiner",'Config saved','ok','Information') | out-null
+    # [windows.forms.messagebox]::show("Please restart NemosMiner",'Config saved','ok','Information') | out-null
 }
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -589,24 +583,13 @@ $MainFormControls += $LabelNotifications
 $LabelGitHub = New-Object System.Windows.Forms.LinkLabel
 # $LabelGitHub.Location           = New-Object System.Drawing.Size(415,39)
 # $LabelGitHub.Size               = New-Object System.Drawing.Size(160,18)
-$LabelGitHub.Location = New-Object System.Drawing.Size(220, 49)
-$LabelGitHub.Size = New-Object System.Drawing.Size(160, 18)
+$LabelGitHub.Location = New-Object System.Drawing.Size(10, 49)
+$LabelGitHub.Size = New-Object System.Drawing.Size(200, 18)
 $LabelGitHub.LinkColor = "BLUE"
 $LabelGitHub.ActiveLinkColor = "RED"
 $LabelGitHub.Text = "NemosMiner on GitHub"
 $LabelGitHub.add_Click( {[system.Diagnostics.Process]::start("https://github.com/nemosminer/NemosMiner/releases")})
 $MainFormControls += $LabelGitHub
-
-$LabelCopyright = New-Object System.Windows.Forms.LinkLabel
-# $LabelCopyright.Location        = New-Object System.Drawing.Size(415,61)
-# $LabelCopyright.Size            = New-Object System.Drawing.Size(200,20)
-$LabelCopyright.Location = New-Object System.Drawing.Size(10, 49)
-$LabelCopyright.Size = New-Object System.Drawing.Size(200, 18)
-$LabelCopyright.LinkColor = "BLUE"
-$LabelCopyright.ActiveLinkColor = "RED"
-$LabelCopyright.Text = "Copyright (c) 2018 MrPlus and Nemo"
-$LabelCopyright.add_Click( {[system.Diagnostics.Process]::start("https://github.com/nemosminer/NemosMiner/blob/master/LICENSE")})
-$MainFormControls += $LabelCopyright
 
 $LabelAddress = New-Object system.Windows.Forms.Label
 $LabelAddress.text = "Wallet Address"
@@ -1117,7 +1100,7 @@ $ConfigPageControls += $CheckBoxGUIMinimized
 $CheckBoxAutoUpdate = New-Object system.Windows.Forms.CheckBox
 $CheckBoxAutoUpdate.Tag = "AutoUpdate"
 $CheckBoxAutoUpdate.text = "Auto Update"
-$CheckBoxAutoUpdate.AutoSize = $false
+$CheckBoxAutoUpdate.AutoSize = $true
 $CheckBoxAutoUpdate.width = 100
 $CheckBoxAutoUpdate.height = 20
 $CheckBoxAutoUpdate.location = New-Object System.Drawing.Point(560, 68)
