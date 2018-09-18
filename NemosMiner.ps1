@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <#
 Product:        NemosMiner
 File:           NemosMiner.ps1
-version:        3.4.1
-version date:   14 September 2018
+version:        3.4.2
+version date:   18 September 2018
 #>
 
 param(
@@ -26,7 +26,7 @@ param(
     [Parameter(Mandatory = $false)]
     [String]$UserName = "nemo", 
     [Parameter(Mandatory = $false)]
-    [String]$WorkerName = "ID=NemosMiner-v3.4.1", 
+    [String]$WorkerName = "ID=NemosMiner-v3.4.2", 
     [Parameter(Mandatory = $false)]
     [Int]$API_ID = 0, 
     [Parameter(Mandatory = $false)]
@@ -154,7 +154,7 @@ Function Form_Load {
                             # @{Name="Unpaid";Expression={$_.total_unpaid}},
                             @{Name = "BTC/D"; Expression = {"{0:N8}" -f ($_.BTCD)}},
                             @{Name = "mBTC/D"; Expression = {"{0:N3}" -f ($_.BTCD * 1000)}},
-                            @{Name = "Est. Pay Date"; Expression = {$_.EstimatedPayDate}},
+                            @{Name = "Est. Pay Date"; Expression = {if ($_.EstimatedPayDate -is 'DateTime') {$_.EstimatedPayDate.ToShortDateString()} else {$_.EstimatedPayDate}}},
                             @{Name = "PaymentThreshold"; Expression = {"$($_.PaymentThreshold) ($('{0:P0}' -f $($_.Balance / $_.PaymentThreshold)))"}},
                             @{Name = "Wallet"; Expression = {$_.Wallet}}
                         ) | Sort "BTC/D" -Descending)

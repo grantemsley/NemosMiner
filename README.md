@@ -1,9 +1,12 @@
  ![alt text](https://github.com/nemosminer/NemosMiner/blob/master/NM.png)
 # NemosMiner  
-Updated 17 September 2018
+Updated 18 September 2018
 [![Version tag](https://img.shields.io/github/release/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/NemosMiner/releases/latest) [![Version date tag](https://img.shields.io/github/release-date/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/Nemosminer/releases/latest) [![Issues tag](https://img.shields.io/github/issues-raw/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/NemosMiner/issues)
 ![Releases](https://img.shields.io/github/downloads/nemosminer/NemosMiner/total.svg)
-### *by Nemo/Minerx117*
+
+by Nemo/Minerx117
+
+with Help From MrPlusGH and grantemsley 
  
 *****
 
@@ -114,9 +117,14 @@ Speical Thankyou To "MrPlus" amazing work with the GUI, PLUS profit calculations
 
    Optional miners (Advanced)
    
-      Some miners are not enabled by default in NemosMiner for a variety of reasons
-      A new folder can be found called "OptionalMiners" containing .ps1 files for some miners
-      For advanced users, refer to OptionalMiners\Readme.txt on how to use
+      Some miners are not enabled by default in NemosMiner for a variety of reasons:
+          - ccminerenemy / zealot / trex / cryptodredge
+              These are closed source and therefore not enabled in NemosMiner by default.
+              Use at your own risk.
+          - Excavator
+              Note as Excavator is owned by "Nicehash" and has a EULA it is NOT enabled in NemosMiner by default
+
+      For advanced users, check the Optional Miners checkbox on the Config tab to enable these miners.
 
    Algo switching log
    

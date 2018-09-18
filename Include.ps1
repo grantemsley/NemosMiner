@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <#
 Product:        NemosMiner
 File:           include.ps1
-version:        3.4.1
-version date:   14 September 2018
+version:        3.4.2
+version date:   18 September 2018
 #>
 
 # New-Item -Path function: -Name ((Get-FileHash $MyInvocation.MyCommand.path).Hash) -Value {$true} -EA SilentlyContinue | out-null
@@ -1030,9 +1030,6 @@ Function Autoupdate {
             # copy files 
             Update-Status("Copying files...")
             Copy-Item .\$UpdateFileName\* .\ -force -Recurse
-
-            # Update Optional Miners to Miners if in use
-            ls .\OptionalMiners\ | ? {$_.name -in (ls .\Miners\).name} | % {Copy-Item -Force $_.FullName .\Miners\}
 
             # Remove any obsolete miner file (ie. Not in new version Miners or OptionalMiners)
             ls .\Miners\ | ? {$_.name -notin (ls .\$UpdateFileName\Miners\).name -and $_.name -notin (ls .\$UpdateFileName\OptionalMiners\).name} | % {Remove-Item -Force $_.FullName}
