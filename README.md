@@ -1,6 +1,6 @@
  ![alt text](https://github.com/nemosminer/NemosMiner/blob/master/NM.png)
 # NemosMiner  
-Updated 18 September 2018
+Updated 19 September 2018
 [![Version tag](https://img.shields.io/github/release/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/NemosMiner/releases/latest) [![Version date tag](https://img.shields.io/github/release-date/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/Nemosminer/releases/latest) [![Issues tag](https://img.shields.io/github/issues-raw/nemosminer/NemosMiner.svg)](https://github.com/nemosminer/NemosMiner/issues)
 ![Releases](https://img.shields.io/github/downloads/nemosminer/NemosMiner/total.svg)
 
@@ -16,6 +16,7 @@ NemosMiner Monitors mining pools in real-time in order to find the most profitab
 	 Auto Benchmarks Each algo to get optimal speeds 
 	 Fully automated 
 	 Auto Downloads Miners
+	 Auto Updates
 
 *****
 
